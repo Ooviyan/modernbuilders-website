@@ -2,25 +2,44 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #111111;
+
+  /* "Plain" — no color story. Hierarchy comes from size, weight, and
+     space, not hue. Two grays do all the secondary-text work; the only
+     non-neutral left is a muted red reserved for real form errors. */
+  --color-brand-navy: #111111;
+  --color-brand-navy-light: #5c5c5c;
+  --color-brand-gold: #8c8c8c;
+  --color-brand-gold-dark: #8c8c8c;
+  --color-brand-maroon: #b3261e;
+  --color-brand-surface: #fafaf9;
+  --color-brand-border: #ececec;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-navy: var(--color-brand-navy);
+  --color-navy-light: var(--color-brand-navy-light);
+  --color-gold: var(--color-brand-gold);
+  --color-gold-dark: var(--color-brand-gold-dark);
+  --color-maroon: var(--color-brand-maroon);
+  --color-surface: var(--color-brand-surface);
+  --color-border: var(--color-brand-border);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
