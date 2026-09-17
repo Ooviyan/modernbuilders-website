@@ -24,6 +24,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
               ['Home', '/'],
               ['Services', '/services'],
               ['Projects', '/projects'],
+              ['Brochures', '/brochures'],
               ['About', '/about'],
               ['Contact', '/contact'],
             ].map(([label, href]) => (

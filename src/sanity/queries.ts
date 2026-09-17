@@ -19,3 +19,7 @@ export const projectBySlugQuery = groq`*[_type == "project" && slug.current == $
 }`
 
 export const aboutPageQuery = groq`*[_type == "aboutPage"][0]`
+
+export const brochuresQuery = groq`*[_type == "brochure"] | order(order asc, title asc){
+  ..., "slug": slug.current, "pdfUrl": pdfFile.asset->url
+}`

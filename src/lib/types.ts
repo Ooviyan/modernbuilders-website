@@ -62,3 +62,15 @@ export interface AboutPage {
   image?: ImageRef
   values: { title: string; description: string }[]
 }
+
+export interface Brochure {
+  _id: string
+  title: string
+  slug: string
+  summary?: string
+  coverImage: ImageRef
+  // Local path (string) or a Sanity file asset's resolved URL.
+  pdfUrl: string
+  pageCount?: number
+  order?: number
+}

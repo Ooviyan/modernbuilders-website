@@ -25,7 +25,11 @@ export default async function HomePage() {
 
   return (
     <>
-      <Hero heading={settings.heroHeading} subheading={settings.heroSubheading} />
+      <Hero
+        heading={settings.heroHeading}
+        subheading={settings.heroSubheading}
+        image={settings.heroImage}
+      />
 
       <StatsBar stats={settings.stats} />
 

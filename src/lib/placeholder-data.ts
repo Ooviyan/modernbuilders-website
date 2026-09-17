@@ -1,4 +1,4 @@
-import type { AboutPage, Project, Service, SiteSettings } from './types'
+import type { AboutPage, Brochure, Project, Service, SiteSettings } from './types'
 
 // Real MODERN BUILDERS content, shown until it's entered into the Sanity
 // Studio (or edited here directly). Services and Projects below are
@@ -10,7 +10,7 @@ export const placeholderSiteSettings: SiteSettings = {
   tagline: 'For Your Generation',
   heroHeading: 'Building homes, businesses, and trust — for your generation, and the ones that follow.',
   heroSubheading:
-    'Since 2000, MODERN BUILDERS has delivered over 200 buildings across Nagapattinam, from design and approvals through construction and handover.',
+    'Homes, commercial spaces & institutions — designed, engineered and delivered with 25 years of trust',
   foundedYear: 2000,
   founderName: 'Er. K. Karthikesan',
   phone: '+91 98424 58564',
@@ -149,6 +149,18 @@ export const placeholderAboutPage: AboutPage = {
     },
   ],
 }
+
+export const placeholderBrochures: Brochure[] = [
+  {
+    _id: 'brochure-interiors',
+    title: 'Interiors',
+    slug: 'interiors',
+    summary: 'Living spaces, kitchens, bedrooms, wardrobes, and feature walls — designed and delivered turnkey.',
+    coverImage: '/brochures/interiors-cover.png',
+    pdfUrl: '/brochures/interiors-catalogue.pdf',
+    pageCount: 66,
+  },
+]
 
 // The two about paragraphs as given, for pages that want the full story as
 // plain text rather than the shorter `intro` above.

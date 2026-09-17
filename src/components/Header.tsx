@@ -3,12 +3,13 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const NAV_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/services', label: 'Services' },
   { href: '/projects', label: 'Projects' },
+  { href: '/brochures', label: 'Brochures' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
 ]
@@ -16,9 +17,26 @@ const NAV_LINKS = [
 export function Header({ companyName }: { companyName: string }) {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  // Starts near-transparent so it floats over a hero image (when there is
+  // one); solidifies once the page scrolls past it for readability.
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 40)
+    handleScroll()
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const solid = scrolled || open
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
+    <header
+      className={`sticky top-0 z-50 border-b transition-colors duration-300 ${
+        solid ? 'border-border backdrop-blur' : 'border-transparent'
+      }`}
+      style={{ backgroundColor: solid ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 0.1)' }}
+    >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center gap-2">
           <Image src="/logo.png" alt={companyName} width={160} height={90} className="h-9 w-auto" priority />
