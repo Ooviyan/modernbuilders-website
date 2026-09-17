@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { SanityImg } from '@/components/SanityImg'
 import { sanityFetch } from '@/sanity/fetch'
 import { servicesQuery } from '@/sanity/queries'
@@ -34,7 +35,7 @@ export default async function ServicesPage() {
                 i % 2 === 1 ? 'md:[&>*:first-child]:order-2' : ''
               }`}
             >
-              <div className="relative aspect-[3/2] w-full overflow-hidden rounded-lg">
+              <div className="relative aspect-[3/2] w-full overflow-hidden">
                 <SanityImg
                   image={service.image}
                   alt={service.title}
@@ -49,6 +50,21 @@ export default async function ServicesPage() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="border-t border-border">
+        <div className="mx-auto max-w-6xl px-6 py-20 text-center">
+          <h2 className="text-3xl font-bold text-navy">Ready to start your project?</h2>
+          <p className="mx-auto mt-4 max-w-xl text-navy-light">
+            Tell us about your project and we&apos;ll get back to you with a free estimate.
+          </p>
+          <Link
+            href="/contact"
+            className="mt-8 inline-block rounded-md bg-navy px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-navy-light"
+          >
+            Get a Free Quote
+          </Link>
         </div>
       </section>
     </>

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 import { ProjectsGrid } from '@/components/ProjectsGrid'
 import { sanityFetch } from '@/sanity/fetch'
 import { projectsQuery } from '@/sanity/queries'
@@ -25,7 +26,9 @@ export default async function ProjectsPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-20">
-        <ProjectsGrid projects={projects} />
+        <Suspense fallback={null}>
+          <ProjectsGrid projects={projects} />
+        </Suspense>
       </section>
     </>
   )

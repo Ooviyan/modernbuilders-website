@@ -60,6 +60,7 @@ export interface AboutPage {
   intro: string
   story?: PortableTextBlock[]
   image?: ImageRef
+  founderImage?: ImageRef
   values: { title: string; description: string }[]
 }
 

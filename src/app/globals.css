@@ -4,13 +4,14 @@
   --background: #ffffff;
   --foreground: #111111;
 
-  /* "Plain" — no color story. Hierarchy comes from size, weight, and
-     space, not hue. Two grays do all the secondary-text work; the only
-     non-neutral left is a muted red reserved for real form errors. */
+  /* "Plain" — mostly monochrome, hierarchy from size/weight/space. One
+     restrained warm accent (drawn from the logo's gold) does real work —
+     active states, small labels — rather than sitting in flat gray.
+     Contrast-checked: 6.2:1 on white, 5:1 on the hero photo's cream tone. */
   --color-brand-navy: #111111;
   --color-brand-navy-light: #5c5c5c;
-  --color-brand-gold: #8c8c8c;
-  --color-brand-gold-dark: #8c8c8c;
+  --color-brand-gold: #7a5c2e;
+  --color-brand-gold-dark: #5f4622;
   --color-brand-maroon: #b3261e;
   --color-brand-surface: #fafaf9;
   --color-brand-border: #ececec;

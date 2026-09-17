@@ -20,7 +20,7 @@ export function ServiceCard({ service }: { service: Service }) {
           />
         </div>
         <div className="p-6">
-          <h3 className="text-lg font-semibold text-navy">{service.title}</h3>
+          <h3 className="line-clamp-2 text-lg font-semibold text-navy">{service.title}</h3>
           <p className="mt-2 text-sm text-navy-light">{service.summary}</p>
         </div>
       </Link>

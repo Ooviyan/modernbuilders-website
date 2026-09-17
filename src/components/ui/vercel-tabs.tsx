@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { cn } from '@/lib/utils'
 
 interface Tab {
@@ -18,81 +18,68 @@ interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
 const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
   ({ className, tabs, activeTab, onTabChange, ...props }, ref) => {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-    const [activeIndex, setActiveIndex] = useState(() =>
-      Math.max(0, tabs.findIndex((t) => t.id === activeTab))
-    )
-    const [hoverStyle, setHoverStyle] = useState({})
-    const [activeStyle, setActiveStyle] = useState({ left: '0px', width: '0px' })
-    const tabRefs = useRef<(HTMLDivElement | null)[]>([])
+    const activeIndex = Math.max(0, tabs.findIndex((t) => t.id === activeTab))
+    const tabRefs = useRef<(HTMLButtonElement | null)[]>([])
 
-    useEffect(() => {
-      if (hoveredIndex !== null) {
-        const hoveredElement = tabRefs.current[hoveredIndex]
-        if (hoveredElement) {
-          const { offsetLeft, offsetWidth } = hoveredElement
-          setHoverStyle({ left: `${offsetLeft}px`, width: `${offsetWidth}px` })
-        }
+    const selectTab = (index: number) => {
+      onTabChange?.(tabs[index].id)
+    }
+
+    const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
+      let next: number | null = null
+      if (e.key === 'ArrowRight') next = (index + 1) % tabs.length
+      else if (e.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length
+      else if (e.key === 'Home') next = 0
+      else if (e.key === 'End') next = tabs.length - 1
+      else if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        selectTab(index)
+        return
       }
-    }, [hoveredIndex])
-
-    useEffect(() => {
-      const activeElement = tabRefs.current[activeIndex]
-      if (activeElement) {
-        const { offsetLeft, offsetWidth } = activeElement
-        setActiveStyle({ left: `${offsetLeft}px`, width: `${offsetWidth}px` })
+      if (next !== null) {
+        e.preventDefault()
+        selectTab(next)
+        tabRefs.current[next]?.focus()
       }
-    }, [activeIndex])
-
-    useEffect(() => {
-      requestAnimationFrame(() => {
-        const firstElement = tabRefs.current[0]
-        if (firstElement) {
-          const { offsetLeft, offsetWidth } = firstElement
-          setActiveStyle({ left: `${offsetLeft}px`, width: `${offsetWidth}px` })
-        }
-      })
-    }, [])
+    }
 
     return (
       <div ref={ref} className={cn('relative', className)} {...props}>
-        <div className="relative">
-          {/* Hover Highlight */}
-          <div
-            className="absolute h-[30px] rounded-[6px] bg-surface transition-all duration-300 ease-out"
-            style={{ ...hoverStyle, opacity: hoveredIndex !== null ? 1 : 0 }}
-          />
-
-          {/* Active Indicator */}
-          <div
-            className="absolute bottom-[-6px] h-[2px] bg-navy transition-all duration-300 ease-out"
-            style={activeStyle}
-          />
-
-          {/* Tabs */}
-          <div className="relative flex items-center space-x-[6px]">
-            {tabs.map((tab, index) => (
-              <div
+        {/* Pill-shaped filter row, styled after Herzog & de Meuron's
+            category strip — the active filter is a solid pill rather than
+            an underline, with a thin gold ring as the one accent touch. */}
+        <div role="tablist" className="flex flex-wrap items-center gap-2">
+          {tabs.map((tab, index) => {
+            const active = index === activeIndex
+            return (
+              <button
                 key={tab.id}
+                type="button"
+                role="tab"
+                id={`tab-${tab.id}`}
+                aria-selected={active}
+                aria-controls={`tabpanel-${tab.id}`}
+                tabIndex={active ? 0 : -1}
                 ref={(el) => {
                   tabRefs.current[index] = el
                 }}
                 className={cn(
-                  'h-[30px] cursor-pointer px-3 py-2 transition-colors duration-300',
-                  index === activeIndex ? 'text-navy' : 'text-navy-light'
+                  'cursor-pointer whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2',
+                  active
+                    ? 'bg-navy text-white ring-1 ring-gold ring-offset-2'
+                    : hoveredIndex === index
+                      ? 'bg-surface text-navy'
+                      : 'text-navy-light'
                 )}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                onClick={() => {
-                  setActiveIndex(index)
-                  onTabChange?.(tab.id)
-                }}
+                onClick={() => selectTab(index)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
               >
-                <div className="flex h-full items-center justify-center whitespace-nowrap text-sm font-medium leading-5">
-                  {tab.label}
-                </div>
-              </div>
-            ))}
-          </div>
+                {tab.label}
+              </button>
+            )
+          })}
         </div>
       </div>
     )

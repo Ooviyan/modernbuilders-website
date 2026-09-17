@@ -45,7 +45,7 @@ export function Header({ companyName }: { companyName: string }) {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-6 lg:flex">
           {NAV_LINKS.map((link) => {
             const active = pathname === link.href
             return (
@@ -70,7 +70,7 @@ export function Header({ companyName }: { companyName: string }) {
 
         <button
           type="button"
-          className="flex h-9 w-9 items-center justify-center rounded-md border border-border md:hidden"
+          className="flex h-11 w-11 items-center justify-center rounded-md border border-border lg:hidden"
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
@@ -86,7 +86,7 @@ export function Header({ companyName }: { companyName: string }) {
       </div>
 
       {open && (
-        <nav className="flex flex-col gap-1 border-t border-border px-6 py-4 md:hidden">
+        <nav className="flex flex-col gap-1 border-t border-border px-6 py-4 lg:hidden">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
@@ -97,6 +97,13 @@ export function Header({ companyName }: { companyName: string }) {
               {link.label}
             </Link>
           ))}
+          <Link
+            href="/contact"
+            onClick={() => setOpen(false)}
+            className="mt-2 rounded-md bg-navy px-4 py-2 text-center text-sm font-semibold text-white transition-colors hover:bg-navy-light"
+          >
+            Get a Quote
+          </Link>
         </nav>
       )}
     </header>

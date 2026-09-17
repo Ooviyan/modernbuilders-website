@@ -17,12 +17,20 @@ export function Hero({ heading, subheading, image }: HeroProps) {
       <div className="absolute inset-0">
         <SanityImg image={image} alt="" fill sizes="100vw" className="h-full w-full object-cover" />
       </div>
+      {/* Scrim behind the text column so it stays legible over whatever part
+          of the photo it lands on — wide/opaque on mobile, where the text
+          nearly spans the viewport; narrower on larger screens, where the
+          text column is a smaller fraction of the width. */}
+      <div
+        className="absolute inset-0 bg-[linear-gradient(to_right,var(--background)_0%,var(--background)_55%,transparent_95%)] sm:bg-[linear-gradient(to_right,var(--background)_0%,var(--background)_38%,transparent_75%)] lg:bg-[linear-gradient(to_right,var(--background)_0%,var(--background)_28%,transparent_60%)]"
+        aria-hidden="true"
+      />
       <div className="relative mx-auto max-w-6xl px-6 pt-[calc(69px+8rem)] pb-32 sm:pt-[calc(69px+11rem)] sm:pb-44 lg:pt-[calc(69px+14rem)] lg:pb-56">
         <div className="max-w-xl">
           <p className="text-sm font-semibold uppercase tracking-widest text-gold">
             For Your Generation
           </p>
-          <h1 className="mt-4 text-4xl font-semibold leading-tight text-navy sm:text-5xl">
+          <h1 className="mt-4 text-balance text-4xl font-semibold leading-tight text-navy sm:text-5xl">
             {heading}
           </h1>
           <p className="mt-6 text-lg text-navy-light">{subheading}</p>

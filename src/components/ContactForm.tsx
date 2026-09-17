@@ -4,6 +4,9 @@ import { useState } from 'react'
 
 type Status = 'idle' | 'submitting' | 'success' | 'error'
 
+const fieldClassName =
+  'mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-navy outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2 focus:border-gold'
+
 export function ContactForm() {
   const [status, setStatus] = useState<Status>('idle')
 
@@ -30,7 +33,11 @@ export function ContactForm() {
 
   if (status === 'success') {
     return (
-      <div className="rounded-lg border border-border bg-surface p-8 text-center">
+      <div
+        role="status"
+        aria-live="polite"
+        className="rounded-lg border border-border bg-surface p-8 text-center"
+      >
         <p className="text-lg font-semibold text-navy">Thanks — we got your message.</p>
         <p className="mt-2 text-sm text-navy-light">We&apos;ll be in touch within one business day.</p>
       </div>
@@ -47,8 +54,9 @@ export function ContactForm() {
           <input
             id="name"
             name="name"
+            autoComplete="name"
             required
-            className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-navy outline-none focus:border-gold"
+            className={fieldClassName}
           />
         </div>
         <div>
@@ -59,7 +67,9 @@ export function ContactForm() {
             id="phone"
             name="phone"
             type="tel"
-            className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-navy outline-none focus:border-gold"
+            inputMode="tel"
+            autoComplete="tel"
+            className={fieldClassName}
           />
         </div>
       </div>
@@ -72,8 +82,11 @@ export function ContactForm() {
           id="email"
           name="email"
           type="email"
+          inputMode="email"
+          autoComplete="email"
+          spellCheck={false}
           required
-          className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-navy outline-none focus:border-gold"
+          className={fieldClassName}
         />
       </div>
 
@@ -81,11 +94,7 @@ export function ContactForm() {
         <label htmlFor="inquiryType" className="text-sm font-medium text-navy">
           I&apos;m interested in
         </label>
-        <select
-          id="inquiryType"
-          name="inquiryType"
-          className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-navy outline-none focus:border-gold"
-        >
+        <select id="inquiryType" name="inquiryType" className={fieldClassName}>
           <option>Building a new project</option>
           <option>Renovating an existing space</option>
           <option>Renting one of your properties</option>
@@ -102,20 +111,22 @@ export function ContactForm() {
           name="message"
           rows={5}
           required
-          className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-navy outline-none focus:border-gold"
+          className={fieldClassName}
         />
       </div>
 
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="rounded-md bg-navy px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-navy-light disabled:opacity-60"
+        className="rounded-md bg-navy px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-navy-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2 disabled:opacity-60"
       >
         {status === 'submitting' ? 'Sending…' : 'Send Message'}
       </button>
 
       {status === 'error' && (
-        <p className="text-sm text-maroon">Something went wrong. Please try again or call/WhatsApp us directly.</p>
+        <p role="alert" aria-live="polite" className="text-sm text-maroon">
+          Something went wrong. Please try again or call/WhatsApp us directly.
+        </p>
       )}
     </form>
   )

@@ -28,7 +28,7 @@ export function BrochureCard({ brochure }: { brochure: Brochure }) {
               {brochure.pageCount} Pages
             </p>
           )}
-          <h3 className="mt-2 text-lg font-semibold text-navy">{brochure.title}</h3>
+          <h3 className="mt-2 line-clamp-2 text-lg font-semibold text-navy">{brochure.title}</h3>
           {brochure.summary && <p className="mt-1 text-sm text-navy-light">{brochure.summary}</p>}
           <div className="mt-5 flex flex-wrap items-center gap-6">
             <a

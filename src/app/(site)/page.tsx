@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Hero } from '@/components/Hero'
 import { StatsBar } from '@/components/StatsBar'
 import { ServiceCard } from '@/components/ServiceCard'
-import { ProjectCard } from '@/components/ProjectCard'
+import { FeaturedProjects } from '@/components/FeaturedProjects'
 import { sanityFetch } from '@/sanity/fetch'
 import { featuredProjectsQuery, servicesQuery, siteSettingsQuery } from '@/sanity/queries'
 import {
@@ -65,11 +65,7 @@ export default async function HomePage() {
               View all →
             </Link>
           </div>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {featuredProjects.map((project) => (
-              <ProjectCard key={project._id} project={project} />
-            ))}
-          </div>
+          <FeaturedProjects projects={featuredProjects} />
         </div>
       </section>
 

@@ -35,7 +35,7 @@ export function ProjectCard({ project }: { project: Project }) {
           {meta && (
             <p className="text-xs font-semibold uppercase tracking-wide text-gold">{meta}</p>
           )}
-          <h3 className="mt-2 text-lg font-semibold text-navy">{project.title}</h3>
+          <h3 className="mt-2 line-clamp-2 text-lg font-semibold text-navy">{project.title}</h3>
           <p className="mt-1 text-sm text-navy-light">
             {project.location}
             {project.kind === 'rental' && ' · For Rent'}

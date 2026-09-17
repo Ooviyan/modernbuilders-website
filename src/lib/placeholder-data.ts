@@ -133,6 +133,7 @@ export const placeholderAboutPage: AboutPage = {
   heading: 'About MODERN BUILDERS',
   intro:
     'Founded in 2000 by Er. K. Karthikesan, MODERN BUILDERS has spent over 25 years shaping homes, commercial spaces, and institutions across Nagapattinam.',
+  founderImage: '/about/founder.png',
   values: [
     {
       title: 'Built to Last',

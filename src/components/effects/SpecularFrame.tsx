@@ -116,6 +116,10 @@ export function SpecularFrame({
     const fx = fxRef.current
     if (!wrap || !fx) return
 
+    // Purely decorative motion — skip it entirely for users who've asked
+    // for reduced motion. The card/link content still renders normally.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
     // Only run the WebGL loop while the frame is actually on screen — with
     // several of these per page (card grids), this keeps well clear of the
     // browser's shared WebGL context limit and avoids wasted GPU work.

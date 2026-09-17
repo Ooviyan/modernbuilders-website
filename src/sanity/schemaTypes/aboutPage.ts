@@ -15,6 +15,13 @@ export const aboutPage = defineType({
     }),
     defineField({ name: 'image', title: 'Image', type: 'image', options: { hotspot: true } }),
     defineField({
+      name: 'founderImage',
+      title: 'Founder Photo',
+      type: 'image',
+      options: { hotspot: true },
+      description: 'Square portrait shown next to the story, with the founder\'s name from Site Settings.',
+    }),
+    defineField({
       name: 'values',
       title: 'Values',
       type: 'array',
